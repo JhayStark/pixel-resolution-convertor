@@ -6,6 +6,7 @@ const Index = () => {
   const [enteredPixelSize, setEnteredPixelSize] = useState("");
   const [pixelConversion, setPixelConversion] = useState({});
   const [remConversion, setRemConversion] = useState({});
+  const [conversionMethod, setConversionMethod] = useState(1);
   const handleWidthChange = (event) => {
     setWidthValue(event.target.value);
   };
@@ -15,23 +16,26 @@ const Index = () => {
   const handlePixelChange = (event) => {
     setEnteredPixelSize(event.target.value);
   };
+  const handleConversionChange = (event) => {
+    // console.log(event.target.value);
+    setConversionMethod(event.target.value);
+  };
+  let pixel = { 1360: "", 1440: "", 1920: "" };
+  let rem = { 1360: "", 1440: "", 1920: "" };
 
-  const convertValues = (height, width, passedPixel) => {
-    let pixel = { 1360: "", 1440: "", 1920: "" };
-    let rem = { 1360: "", 1440: "", 1920: "" };
+  const convertToPixel = (value, scale) => {
+    let pixel = value;
+    // console.log(pixel, scale);
 
-    const convertToPixel = (value, scale) => {
-      let pixel = value;
-      // console.log(pixel, scale);
+    return pixel * scale;
+  };
+  const convertToRem = (pixelValue) => {
+    let pixel = pixelValue;
 
-      return pixel * scale;
-    };
-    const convertToRem = (pixelValue) => {
-      let pixel = pixelValue;
+    return pixel * 0.0625;
+  };
 
-      return pixel * 0.0625;
-    };
-
+  const convertValuesForFont = (height, width, passedPixel) => {
     const convertFor1360x720 = () => {
       let heightFactor = 720 / height;
       let widthFactor = 1360 / width;
@@ -83,9 +87,107 @@ const Index = () => {
     // console.log(pixel);
   };
 
+  const convertValuesForVertical = (height, width, passedPixel) => {
+    const convertFor1360x720 = () => {
+      let heightFactor = 720 / height;
+      // console.log(height, width);
+
+      let newPixelValue = convertToPixel(passedPixel, heightFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1360] = newPixelValue;
+      rem[1360] = remValue;
+      // console.log(pixel[1360], rem[1360]);
+    };
+    const convertFor1440x900 = () => {
+      let heightFactor = 900 / height;
+
+      // console.log(avgFactor);
+
+      let newPixelValue = convertToPixel(passedPixel, heightFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1440] = newPixelValue;
+      rem[1440] = remValue;
+      // console.log(passedPixel);
+      // console.log(pixel[1360], rem[1360]);
+    };
+    const convertFor1920x1080 = () => {
+      let heightFactor = 1080 / height;
+
+      let newPixelValue = convertToPixel(passedPixel, heightFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1920] = newPixelValue;
+      rem[1920] = remValue;
+      // console.log(pixel[1360], rem[1360]);
+
+      // console.log(passedPixel);
+    };
+
+    convertFor1360x720();
+    convertFor1440x900();
+    convertFor1920x1080();
+
+    setPixelConversion(pixel);
+    setRemConversion(rem);
+
+    // console.log(pixel);
+  };
+
+  const convertValuesForHorizontal = (height, width, passedPixel) => {
+    const convertFor1360x720 = () => {
+      let widthFactor = 1360 / width;
+
+      let newPixelValue = convertToPixel(passedPixel, widthFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1360] = newPixelValue;
+      rem[1360] = remValue;
+      // console.log(pixel[1360], rem[1360]);
+    };
+    const convertFor1440x900 = () => {
+      let widthFactor = 1440 / width;
+
+      let newPixelValue = convertToPixel(passedPixel, widthFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1440] = newPixelValue;
+      rem[1440] = remValue;
+      // console.log(passedPixel);
+      // console.log(pixel[1360], rem[1360]);
+    };
+    const convertFor1920x1080 = () => {
+      let widthFactor = 1920 / width;
+
+      let newPixelValue = convertToPixel(passedPixel, widthFactor);
+      let remValue = convertToRem(newPixelValue);
+      pixel[1920] = newPixelValue;
+      rem[1920] = remValue;
+      // console.log(pixel[1360], rem[1360]);
+
+      // console.log(passedPixel);
+    };
+
+    convertFor1360x720();
+    convertFor1440x900();
+    convertFor1920x1080();
+
+    setPixelConversion(pixel);
+    setRemConversion(rem);
+
+    // console.log(pixel);
+  };
+
+  const handleSelection = (select) => {
+    console.log(conversionMethod);
+    if (conversionMethod == 1) {
+      convertValuesForFont(heightValue, widthValue, enteredPixelSize);
+    } else if (conversionMethod == 2) {
+      convertValuesForHorizontal(heightValue, widthValue, enteredPixelSize);
+    } else if (conversionMethod == 3) {
+      convertValuesForVertical(heightValue, widthValue, enteredPixelSize);
+    }
+  };
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center px-2 mt-24 font-sans md:px-5">
+      <div className="flex flex-col items-center justify-center px-2 mt-16 font-sans md:px-5">
         <h1 className="text-2xl font-bold text-center">
           Resolution or dimensions of Figma
         </h1>
@@ -109,6 +211,17 @@ const Index = () => {
             onChange={handleHeightChange}
           />
         </div>
+        <select
+          name="conversionMethod"
+          id="conversionMethod"
+          value={conversionMethod}
+          onChange={handleConversionChange}
+          className="mt-5 text-lg font-extrabold"
+        >
+          <option value="1">Font Size</option>
+          <option value="2">Horizontal Pixel Size, X-axis</option>
+          <option value="3">Vertical Pixel Size, Y-axis</option>
+        </select>
 
         <div className="flex flex-row gap-1 mt-10 md:gap-10 ">
           <input
@@ -119,9 +232,7 @@ const Index = () => {
             onChange={handlePixelChange}
           />
           <button
-            onClick={() =>
-              convertValues(heightValue, widthValue, enteredPixelSize)
-            }
+            onClick={() => handleSelection(conversionMethod)}
             className="p-5 font-bold text-white bg-green-400 rounded-lg hover:opacity-90"
           >
             Convert
