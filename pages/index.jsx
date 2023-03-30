@@ -140,28 +140,28 @@ const Index = () => {
               <tr>
                 <td className="text-lg font-medium pb-14">1360x720</td>
                 <td className="pl-12 text-2xl font-bold text-green-600 lg:pl-32 pb-14">
-                  {pixelConversion[1360].toFixed(3)}
+                  {pixelConversion[1360]?.toFixed(3)}
                 </td>
                 <td className="pl-12 text-2xl font-bold text-yellow-600 lg:pl-32 pb-14">
-                  {remConversion[1360].toFixed(3)}
+                  {remConversion[1360]?.toFixed(3)}
                 </td>
               </tr>
               <tr>
                 <td className="text-lg font-medium pb-14">1440x900</td>
                 <td className="pl-12 text-2xl font-bold text-green-600 lg:pl-32 pb-14">
-                  {pixelConversion[1440].toFixed(3)}
+                  {pixelConversion[1440]?.toFixed(3)}
                 </td>
                 <td className="pl-12 text-2xl font-bold text-yellow-600 lg:pl-32 pb-14">
-                  {remConversion[1440].toFixed(3)}
+                  {remConversion[1440]?.toFixed(3)}
                 </td>
               </tr>
               <tr>
                 <td className="text-lg font-medium pb-14">1920x1080</td>
                 <td className="pl-12 text-2xl font-bold text-green-600 lg:pl-32 pb-14">
-                  {pixelConversion[1920].toFixed(3)}
+                  {pixelConversion[1920]?.toFixed(3)}
                 </td>
                 <td className="pl-12 text-2xl font-bold text-yellow-600 lg:pl-32 pb-14">
-                  {remConversion[1920].toFixed(3)}
+                  {remConversion[1920]?.toFixed(3)}
                 </td>
               </tr>
             </tbody>
