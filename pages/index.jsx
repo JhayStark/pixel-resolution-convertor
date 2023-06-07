@@ -36,8 +36,8 @@ const Index = () => {
   };
 
   const convertValuesForFont = (height, width, passedPixel) => {
-    const convertFor1360x720 = () => {
-      let heightFactor = 720 / height;
+    const convertFor1360x768 = () => {
+      let heightFactor = 768 / height;
       let widthFactor = 1360 / width;
       // console.log(height, width);
       let avgFactor = (heightFactor + widthFactor) / 2;
@@ -77,7 +77,7 @@ const Index = () => {
       // console.log(passedPixel);
     };
 
-    convertFor1360x720();
+    convertFor1360x768();
     convertFor1440x900();
     convertFor1920x1080();
 
@@ -88,8 +88,8 @@ const Index = () => {
   };
 
   const convertValuesForVertical = (height, width, passedPixel) => {
-    const convertFor1360x720 = () => {
-      let heightFactor = 720 / height;
+    const convertFor1360x768 = () => {
+      let heightFactor = 768 / height;
       // console.log(height, width);
 
       let newPixelValue = convertToPixel(passedPixel, heightFactor);
@@ -122,7 +122,7 @@ const Index = () => {
       // console.log(passedPixel);
     };
 
-    convertFor1360x720();
+    convertFor1360x768();
     convertFor1440x900();
     convertFor1920x1080();
 
@@ -133,7 +133,7 @@ const Index = () => {
   };
 
   const convertValuesForHorizontal = (height, width, passedPixel) => {
-    const convertFor1360x720 = () => {
+    const convertFor1360x768 = () => {
       let widthFactor = 1360 / width;
 
       let newPixelValue = convertToPixel(passedPixel, widthFactor);
@@ -164,7 +164,7 @@ const Index = () => {
       // console.log(passedPixel);
     };
 
-    convertFor1360x720();
+    convertFor1360x768();
     convertFor1440x900();
     convertFor1920x1080();
 
@@ -249,7 +249,7 @@ const Index = () => {
             </thead>
             <tbody>
               <tr>
-                <td className="text-lg font-medium pb-14">1360x720</td>
+                <td className="text-lg font-medium pb-14">1360x768</td>
                 <td className="pl-12 text-2xl font-bold text-green-600 lg:pl-32 pb-14">
                   {pixelConversion[1360]?.toFixed(3)}
                 </td>
